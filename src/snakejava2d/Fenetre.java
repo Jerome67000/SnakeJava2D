@@ -10,7 +10,8 @@ import javax.swing.JPanel;
 
 /**
  * Fenêtre principale, permetant d'afficher le jeu
- * @author Jerome, le 23/04/2014
+ * @author Jerome
+ * @version 1.0, le 23/04/2014
  */
 public class Fenetre extends JFrame implements Constantes {
     

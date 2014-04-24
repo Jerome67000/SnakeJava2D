@@ -1,8 +1,9 @@
 package snakejava2d;
 
 /**
- *
+ * Constantes pour définir les dimensions de la grille
  * @author Jerome
+ * @version 1.0, le 24/04/2014
  */
 public interface Constantes {
 
