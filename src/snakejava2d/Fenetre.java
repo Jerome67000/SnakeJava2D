@@ -12,7 +12,7 @@ import javax.swing.JPanel;
  * Fenêtre principale, permetant d'afficher le jeu
  * @author Jerome, le 23/04/2014
  */
-public class Fenetre extends JFrame {
+public class Fenetre extends JFrame implements Constantes {
     
     public Fenetre() {
         
@@ -23,7 +23,7 @@ public class Fenetre extends JFrame {
         
         // Conteneur principal
         JPanel jpContenant = new JPanel();
-        jpContenant.setPreferredSize(new Dimension(600, 600));
+        jpContenant.setPreferredSize(new Dimension(NB_CASE_X*DIM_CASE, NB_CASE_Y*DIM_CASE));
 
         setContentPane(jpContenant);
         
