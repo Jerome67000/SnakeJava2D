@@ -1,25 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package snakejava2d;
+
+import java.awt.Graphics;
+import java.util.LinkedList;
 
 /**
  * Objet représentant le serpent qui sera une collections de cases
  * @author Jerome
  * @version 1.0, le 24/04/2014
  */
-public class Serpent implements Constantes {
+public class Serpent {
     
-    private int posX;
-    private int posY;
+    private LinkedList<Case> list;
     
-    public Serpent(int posX, int posY) {
+    public Serpent() {
         
-        this.posX = posX;
-        this.posY = posY;
+        this.list = new LinkedList<Case>(); 
+        
     }
     
+    public void Calcul() {
+        
+    }
+    
+    public void Affichage(Graphics g) {
+        
+    }
 }

@@ -1,7 +1,3 @@
-/*
- *
- */
-
 package snakejava2d;
 
 import java.awt.Dimension;
