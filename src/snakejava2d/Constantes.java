@@ -11,4 +11,6 @@ public interface Constantes {
       public final static int NB_CASE_Y = 30;
       public final static int DIM_CASE = 20;
       
+      public final static String GAME_OVER = "game over";
+      
 }

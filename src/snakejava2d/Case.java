@@ -30,6 +30,16 @@ public class Case implements Constantes {
         g.drawRect(indiceX, indiceX, DIM_CASE, DIM_CASE);
     }
     
+    public boolean isCaseValide() {
+        
+        if (this.getPosX() < 0 || this.getPosY() < 0)
+            return false;
+        if (this.getPosX() > NB_CASE_X*DIM_CASE || this.getPosY() > NB_CASE_Y*DIM_CASE) 
+            return true;
+        
+        return true;
+    } 
+    
     public int getPosX() {
         return this.indiceX;
     }

@@ -16,6 +16,8 @@ public class Serpent {
     private LinkedList<Case> listeCasesSerpent;
     private Direction direction;
     
+    private boolean estMort;
+    
     public Serpent() {
         
         this.listeCasesSerpent = new LinkedList<Case>(); 
@@ -29,7 +31,10 @@ public class Serpent {
     
     public void Calcul() {
         
-        avance();
+        if(peutAvancer())
+            avance();
+        else
+            this.estMort = true;
         
     }
     
@@ -53,23 +58,33 @@ public class Serpent {
          this.listeCasesSerpent.removeLast();
     }
     
+    public boolean peutAvancer() {
+        
+        return getNextCase().isCaseValide();
+    }
+    
+    public boolean estMort() {
+        return this.estMort;
+    }
+    
     private Case getNextCase() {
             
         Case tete = this.listeCasesSerpent.getFirst();
         
-//        switch(this.direction) {
-//            
-//            case VERS_LE_HAUT :
-//                return new Case(tete.getPosX(), tete.getPosY()-1);
-//            case VERS_LA_DROITE :
-//                return new Case(tete.getPosX()+1, tete.getPosY());
-//            case VERS_LE_BAS :
-//                return new Case(tete.getPosX(), tete.getPosY()+1);
-//            case VERS_LA_GAUCHE :
-//                return new Case(tete.getPosX()-1, tete.getPosY()-1);
-//        }
-        return new Case(0, 0);
+        switch(this.direction) {
+            
+            case VERS_LE_HAUT :
+                return new Case(tete.getPosX(), tete.getPosY()-1);
+            case VERS_LA_DROITE :
+                return new Case(tete.getPosX()+1, tete.getPosY());
+            case VERS_LE_BAS :
+                return new Case(tete.getPosX(), tete.getPosY()+1);
+            case VERS_LA_GAUCHE :
+                return new Case(tete.getPosX()-1, tete.getPosY());
+        }
+        return null;
     }
+    
     
     public enum Direction {
         

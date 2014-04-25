@@ -2,6 +2,8 @@ package snakejava2d;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -18,10 +20,11 @@ public class Fenetre extends JFrame implements Constantes {
 
         super("Snake");
         this.game = new Game();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setFocusable(false);
 
-        final JPanel content = new JPanel() {
+        final JPanel jpcontenant = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                   super.paintComponent(g);
@@ -29,9 +32,18 @@ public class Fenetre extends JFrame implements Constantes {
                   Fenetre.this.game.affichage(g);
             }
         };
+        jpcontenant.setFocusable(true);
+        
+        // le listener gérant les entrées au clavier
+        jpcontenant.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+              Fenetre.this.game.gestionDuClavier(e);
+        }
+        });
 
-        content.setPreferredSize(new Dimension(NB_CASE_X*DIM_CASE, NB_CASE_Y*DIM_CASE));
-        setContentPane(content);
+        jpcontenant.setPreferredSize(new Dimension(NB_CASE_X*DIM_CASE, NB_CASE_Y*DIM_CASE));
+        setContentPane(jpcontenant);
 
         Thread thread = new Thread(new Runnable() {                  
         @Override
@@ -39,10 +51,10 @@ public class Fenetre extends JFrame implements Constantes {
             while (true) { // boucle infinie
                 
                 Fenetre.this.game.calcul();
-                content.repaint();
+                jpcontenant.repaint();
                 // temporisation
                 try {
-                      Thread.sleep(500);
+                      Thread.sleep(100);
                 } catch (InterruptedException e) {
                       //
                 }
