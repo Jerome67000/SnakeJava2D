@@ -1,6 +1,7 @@
 package snakejava2d;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -14,38 +15,36 @@ public class Fenetre extends JFrame implements Constantes {
     private Game game;
     
     public Fenetre() {
-        
-        super("Snake avec Java2D");
-        
+
+        super("Snake");
+        this.game = new Game();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        
-        // Conteneur principal
-        JPanel jpContenant = new JPanel();
-        jpContenant.setPreferredSize(new Dimension(NB_CASE_X*DIM_CASE, NB_CASE_Y*DIM_CASE));
 
-        setContentPane(jpContenant);
-        
-        this.game = new Game();
-        
+        final JPanel content = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                  super.paintComponent(g);
+                  // affichage du modèle du jeu
+                  Fenetre.this.game.affichage(g);
+            }
+        };
+
+        content.setPreferredSize(new Dimension(NB_CASE_X*DIM_CASE, NB_CASE_Y*DIM_CASE));
+        setContentPane(content);
+
         Thread thread = new Thread(new Runnable() {                  
             @Override
             public void run() {
-                while (true) { 
-                    Fenetre.this.game.calcul();
+                  while (true) {
 
-                    jpContenant.repaint();
-                    // temporisation
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                    }
-                }                        
+                        Fenetre.this.game.calcul();
+                        content.repaint();
+                  }                        
             }
         });
-      // lancer le thread
-      thread.start();
-    }
+        thread.start();
+    } 
     
     public static void main(String[] args) {
             
@@ -54,6 +53,6 @@ public class Fenetre extends JFrame implements Constantes {
         fenetre.setLocationRelativeTo(null);
         fenetre.setVisible(true);
         
-      }
+    }
     
 }

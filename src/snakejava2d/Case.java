@@ -1,5 +1,10 @@
 package snakejava2d;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+
 /**
  *
  * @author Jerome
@@ -14,6 +19,15 @@ public class Case implements Constantes {
         
         this.indiceX = posX;
         this.indiceY = posY;
+    }
+    
+    public void AffichageCase(Graphics g) {
+        
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                            RenderingHints.VALUE_ANTIALIAS_ON);
+        
+        g.drawRect(indiceX, indiceX, DIM_CASE, DIM_CASE);
     }
     
     public int getPosX() {
