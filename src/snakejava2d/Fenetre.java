@@ -11,6 +11,8 @@ import javax.swing.JPanel;
  */
 public class Fenetre extends JFrame implements Constantes {
     
+    private Game game;
+    
     public Fenetre() {
         
         super("Snake avec Java2D");
@@ -24,6 +26,25 @@ public class Fenetre extends JFrame implements Constantes {
 
         setContentPane(jpContenant);
         
+        this.game = new Game();
+        
+        Thread thread = new Thread(new Runnable() {                  
+            @Override
+            public void run() {
+                while (true) { 
+                    Fenetre.this.game.calcul();
+
+                    jpContenant.repaint();
+                    // temporisation
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                    }
+                }                        
+            }
+        });
+      // lancer le thread
+      thread.start();
     }
     
     public static void main(String[] args) {

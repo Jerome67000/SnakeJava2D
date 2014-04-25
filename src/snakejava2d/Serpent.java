@@ -1,6 +1,8 @@
 package snakejava2d;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.LinkedList;
 
 /**
@@ -16,6 +18,10 @@ public class Serpent {
         
         this.list = new LinkedList<Case>(); 
         
+        this.list.add(new Case(2, 2));
+        this.list.add(new Case(15, 15));
+        this.list.add(new Case(16, 15));
+        
     }
     
     public void Calcul() {
@@ -23,6 +29,18 @@ public class Serpent {
     }
     
     public void Affichage(Graphics g) {
+        
+        
+        
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                            RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Dessin du serpent
+        for (Case c : this.list) {
+            
+            g.fillRect(c.getX(), c.getY(), c.getLargeur(), c.getHauteur());
+        }
         
     }
 }

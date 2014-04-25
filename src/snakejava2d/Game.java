@@ -9,13 +9,25 @@ import java.awt.Graphics;
  */
 
 public class Game {
+    
+    Serpent serpent;
+    
+    public Game() {
+        
+        this.serpent = new Serpent();
+    }
 
-      public void calcul() {
-      }
-      
-      // le dessin graphique du jeu
-      public void affichage(Graphics g) {
-           
-      }
+    public void calcul() {
+        
+        this.serpent.Calcul();
+
+    }
+
+    public void affichage(Graphics g) {
+        
+        this.serpent.Affichage(g);
+        
+
+    }
       
 }
