@@ -34,7 +34,6 @@ public class Grille implements Constantes {
     
     public void Affichage(Graphics g) {
         
-        
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                             RenderingHints.VALUE_ANTIALIAS_ON);
@@ -44,8 +43,6 @@ public class Grille implements Constantes {
         // Dessin du serpent
          for(Case c : this.grille)
              g.drawRect(c.getX(), c.getY(), c.getLargeur(), c.getHauteur());
-            
-            
-        
+  
     }
 }

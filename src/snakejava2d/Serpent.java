@@ -29,6 +29,7 @@ public class Serpent {
     
     public void Calcul() {
         
+        avance();
         
     }
     
@@ -56,18 +57,18 @@ public class Serpent {
             
         Case tete = this.listeCasesSerpent.getFirst();
         
-        switch(this.direction) {
-            
-            case VERS_LE_HAUT :
-                return new Case(tete.getPosX(), tete.getPosY()-1);
-            case VERS_LA_DROITE :
-                return new Case(tete.getPosX()+1, tete.getPosY());
-            case VERS_LE_BAS :
-                return new Case(tete.getPosX(), tete.getPosY()+1);
-            case VERS_LA_GAUCHE :
-                return new Case(tete.getPosX()-1, tete.getPosY()-1);
-        }
-        return null;
+//        switch(this.direction) {
+//            
+//            case VERS_LE_HAUT :
+//                return new Case(tete.getPosX(), tete.getPosY()-1);
+//            case VERS_LA_DROITE :
+//                return new Case(tete.getPosX()+1, tete.getPosY());
+//            case VERS_LE_BAS :
+//                return new Case(tete.getPosX(), tete.getPosY()+1);
+//            case VERS_LA_GAUCHE :
+//                return new Case(tete.getPosX()-1, tete.getPosY()-1);
+//        }
+        return new Case(0, 0);
     }
     
     public enum Direction {

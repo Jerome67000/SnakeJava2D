@@ -34,15 +34,21 @@ public class Fenetre extends JFrame implements Constantes {
         setContentPane(content);
 
         Thread thread = new Thread(new Runnable() {                  
-            @Override
-            public void run() {
-                  while (true) {
-
-                        Fenetre.this.game.calcul();
-                        content.repaint();
-                  }                        
-            }
-        });
+        @Override
+        public void run() {
+            while (true) { // boucle infinie
+                
+                Fenetre.this.game.calcul();
+                content.repaint();
+                // temporisation
+                try {
+                      Thread.sleep(500);
+                } catch (InterruptedException e) {
+                      //
+                }
+            }                        
+      }
+    });
         thread.start();
     } 
     
