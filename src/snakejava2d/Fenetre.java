@@ -18,7 +18,7 @@ public class Fenetre extends JFrame implements Constantes {
     
     public Fenetre() {
 
-        super("Snake");
+        super(TITRE+" "+VERSION);
         this.game = new Game();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -54,7 +54,7 @@ public class Fenetre extends JFrame implements Constantes {
                 jpcontenant.repaint();
                 // temporisation
                 try {
-                      Thread.sleep(100);
+                      Thread.sleep(DELAI_RAFFRAICHISSEMENT);
                 } catch (InterruptedException e) {
                       //
                 }

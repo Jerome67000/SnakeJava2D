@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 /**
  * Coeur du jeu, boucle de calcul et d'affichage
@@ -16,31 +15,44 @@ import java.util.ArrayList;
 public class Game implements Constantes {
     
     private Serpent serpent;
+    private Grenouille grenouille;
     private Grille grille;
     
     private boolean isGameOver;
-    
+    private int niveau;    
     
     public Game() {
         
         this.serpent = new Serpent();
+        this.grenouille = new Grenouille();
         this.grille = new Grille();
-
+        
+        this.niveau = 1;   
     }
 
     public void calcul() {
+        this.grenouille.Calcul();
+        if(!this.isGameOver) {
+            if(this.serpent.estMort())
+                this.isGameOver = true;
+            this.serpent.Calcul(this.grenouille, getNiveau());
         
-        if(this.serpent.estMort())
-            this.isGameOver = true;
-        this.serpent.Calcul();
+        }
     }
 
     public void affichage(Graphics g) {
         
         this.grille.Affichage(g);
+        this.grenouille.Affichage(g);
         this.serpent.Affichage(g);
+        
         if(this.isGameOver)
             afficherGameOver(g);
+        
+        g.setColor(Color.BLUE);
+        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+        g.drawString(String.valueOf(getNiveau()), 5, 25);
+        
     }
     
     public void afficherGameOver(Graphics g) {
@@ -57,20 +69,19 @@ public class Game implements Constantes {
     
     public void gestionDuClavier(KeyEvent ke) {
         
-        if(ke.getKeyCode() == KeyEvent.VK_RIGHT) {
-            
-        }
-        else if(ke.getKeyCode() == KeyEvent.VK_LEFT) {
-            
-        }
-        else if(ke.getKeyCode() == KeyEvent.VK_UP) {
-            
-        }
-        else if(ke.getKeyCode() == KeyEvent.VK_DOWN) {
-            
-        }
-        
-        
+        if(ke.getKeyCode() == KeyEvent.VK_RIGHT)
+            this.serpent.setNouvelleDirection(Serpent.Direction.VERS_LA_DROITE);
+        else if(ke.getKeyCode() == KeyEvent.VK_LEFT)
+            this.serpent.setNouvelleDirection(Serpent.Direction.VERS_LA_GAUCHE);
+        else if(ke.getKeyCode() == KeyEvent.VK_UP)
+            this.serpent.setNouvelleDirection(Serpent.Direction.VERS_LE_HAUT);
+        else if (ke.getKeyCode() == KeyEvent.VK_DOWN)
+            this.serpent.setNouvelleDirection(Serpent.Direction.VERS_LE_BAS);
+  
     }
-      
+    
+    public int getNiveau() {
+        this.niveau = 1+this.serpent.getNbGrenouillesMangees()/2;
+        return this.niveau;
+    }
 }

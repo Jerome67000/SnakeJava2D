@@ -1,5 +1,6 @@
 package snakejava2d;
 
+import com.sun.org.apache.xpath.internal.operations.Equals;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -34,11 +35,19 @@ public class Case implements Constantes {
         
         if (this.getPosX() < 0 || this.getPosY() < 0)
             return false;
-        if (this.getPosX() > NB_CASE_X*DIM_CASE || this.getPosY() > NB_CASE_Y*DIM_CASE) 
-            return true;
-        
+        if (this.getPosX() > NB_CASE_X-1 || this.getPosY() > NB_CASE_Y-1) 
+            return false;
         return true;
     } 
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Case) {
+            Case c = (Case)obj;
+            return this.getPosX() == c.getPosX() && this.getPosY() == c.getPosY();
+        }
+        return false;
+    }
     
     public int getPosX() {
         return this.indiceX;
