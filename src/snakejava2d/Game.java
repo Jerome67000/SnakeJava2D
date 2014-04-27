@@ -42,7 +42,9 @@ public class Game implements Constantes {
 
     public void affichage(Graphics g) {
         
-        this.grille.Affichage(g);
+        if(GRIILE_ON)
+            this.grille.Affichage(g);
+        
         this.grenouille.Affichage(g);
         this.serpent.Affichage(g);
         

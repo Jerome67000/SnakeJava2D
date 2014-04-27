@@ -47,11 +47,20 @@ public class Grenouille extends Case implements Constantes {
         g2.setTransform(tr);
     }
     
-    public void nouvelleGrenouille() {
+    public void nouvelleGrenouille(Serpent serpent) {
         
-        this.setPosX(getRandomX());
-        this.setPosY(getRandomY());
-        this.angle = 0;
+        Case newGrenouille = new Case(getRandomX(), getRandomY());
+        
+        
+        if (!serpent.getListeCasesSerpent().contains(newGrenouille)) {
+            this.setPosX(newGrenouille.getPosX());
+            this.setPosY(newGrenouille.getPosY());
+            this.angle = 0;
+        }
+        else
+            nouvelleGrenouille(serpent);
+        
+        
     }
     
     private static int getRandomX() {

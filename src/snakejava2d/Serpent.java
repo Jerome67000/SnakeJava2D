@@ -2,7 +2,6 @@ package snakejava2d;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -14,7 +13,7 @@ import java.util.LinkedList;
  * @author Jerome
  * @version 1.0, le 24/04/2014
  */
-public class Serpent {
+public class Serpent implements Constantes {
     
     private LinkedList<Case> listeCasesSerpent;
     private Direction directionActuelle;
@@ -35,7 +34,7 @@ public class Serpent {
         this.listeCasesSerpent.add(new Case(14, 10));
         this.listeCasesSerpent.add(new Case(15, 10));
         this.listeCasesSerpent.add(new Case(16, 10));
-        this.directionActuelle = Direction.VERS_LE_HAUT;
+        this.directionActuelle = Direction.VERS_LA_GAUCHE;
         
     }
     
@@ -49,7 +48,7 @@ public class Serpent {
             tourner();
             if(peutManger(grenouille)) {
                 mange();
-                grenouille.nouvelleGrenouille();
+                grenouille.nouvelleGrenouille(this);
             }
             else if(peutAvancer())
                 avance();
@@ -64,26 +63,81 @@ public class Serpent {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                             RenderingHints.VALUE_ANTIALIAS_ON);
-        
-        
+       
         // Dessin du serpent
         for (Case c : this.listeCasesSerpent) {
             
             int tailleX = c.getLargeur();
             int tailleY = c.getHauteur();
             
-            g2.setColor(Color.BLACK);
-            g2.fill(new RoundRectangle2D.Double(c.getX(), c.getY(), tailleX, tailleY, 15, 15)); 
-            g2.setStroke(new BasicStroke(1.6f));
+            if(c == this.listeCasesSerpent.getFirst()) {
+                
+                g2.setStroke(new BasicStroke(2.0f));
+                g2.setColor(Color.BLACK);
+                g2.drawOval(c.getX(), c.getY(), tailleX, tailleY);
+                g2.setStroke(new BasicStroke(1.0f));
+                g2.setColor(Color.RED);
+                
+                switch(this.directionActuelle) {
+                    case VERS_LA_GAUCHE : {
+                        
+                        g2.drawOval((c.getX()+DIM_CASE/2-(tailleX/5)/2)-4, (c.getY()+DIM_CASE/2-(tailleX/5)/2)+4, tailleX/5, tailleY/5);
+                        g2.drawOval((c.getX()+DIM_CASE/2-(tailleX/5)/2)-4, (c.getY()+DIM_CASE/2-(tailleX/5)/2)-4, tailleX/5, tailleY/5);
+                    } break;
+                        
+                    case VERS_LA_DROITE : {
 
+                        g2.drawOval((c.getX()+DIM_CASE/2-(tailleX/5)/2)+4, (c.getY()+DIM_CASE/2-(tailleX/5)/2)-4, tailleX/5, tailleY/5);
+                        g2.drawOval((c.getX()+DIM_CASE/2-(tailleX/5)/2)+4, (c.getY()+DIM_CASE/2-(tailleX/5)/2)+4, tailleX/5, tailleY/5);
+                    } break;
+                        
+                    case VERS_LE_BAS : {
+                        
+                        g2.drawOval((c.getX()+DIM_CASE/2-(tailleX/5)/2)+4, (c.getY()+DIM_CASE/2-(tailleX/5)/2)+4, tailleX/5, tailleY/5);
+                        g2.drawOval((c.getX()+DIM_CASE/2-(tailleX/5)/2)-4, (c.getY()+DIM_CASE/2-(tailleX/5)/2)+4, tailleX/5, tailleY/5);
+                    } break;
+                        
+                    case VERS_LE_HAUT : {
+                        
+                        g2.drawOval((c.getX()+DIM_CASE/2-(tailleX/5)/2)-4, (c.getY()+DIM_CASE/2-(tailleX/5)/2)-4, tailleX/5, tailleY/5);
+                        g2.drawOval((c.getX()+DIM_CASE/2-(tailleX/5)/2)+4, (c.getY()+DIM_CASE/2-(tailleX/5)/2)-4, tailleX/5, tailleY/5);
+                    } break;
+    
+                }
+            }
+            else {
+                
+                g2.setColor(Color.LIGHT_GRAY);
+                g2.fill(new RoundRectangle2D.Double(c.getX()+2, c.getY()+2, tailleX-4, tailleY-4, 8, 8)); 
+                g2.setStroke(new BasicStroke(2.0f));
+                g2.setColor(Color.BLACK);
+                g2.draw(new RoundRectangle2D.Double(c.getX()+2, c.getY()+2, tailleX-4, tailleY-4, 8, 8)); 
+            }
         }
+    }
+    
+    private Case getNextCase() {
+            
+        Case tete = this.listeCasesSerpent.getFirst();
+        
+        switch(this.directionActuelle) {
+            
+            case VERS_LE_HAUT :
+                return new Case(tete.getPosX(), tete.getPosY()-1);
+            case VERS_LA_DROITE :
+                return new Case(tete.getPosX()+1, tete.getPosY());
+            case VERS_LE_BAS :
+                return new Case(tete.getPosX(), tete.getPosY()+1);
+            case VERS_LA_GAUCHE :
+                return new Case(tete.getPosX()-1, tete.getPosY());
+        }
+        return null;
     }
     
     public boolean peutAvancer() {
         
         return getNextCase().isCaseValide() && !this.listeCasesSerpent.contains(getNextCase());
     }
-    
     
     private void avance() {
         
@@ -138,23 +192,11 @@ public class Serpent {
         return this.estMort;
     }
     
-    private Case getNextCase() {
-            
-        Case tete = this.listeCasesSerpent.getFirst();
+    public LinkedList<Case> getListeCasesSerpent() {
         
-        switch(this.directionActuelle) {
-            
-            case VERS_LE_HAUT :
-                return new Case(tete.getPosX(), tete.getPosY()-1);
-            case VERS_LA_DROITE :
-                return new Case(tete.getPosX()+1, tete.getPosY());
-            case VERS_LE_BAS :
-                return new Case(tete.getPosX(), tete.getPosY()+1);
-            case VERS_LA_GAUCHE :
-                return new Case(tete.getPosX()-1, tete.getPosY());
-        }
-        return null;
+        return this.listeCasesSerpent;
     }
+
     
     private int getThresholdCounter(int niveau) {
       switch (niveau) {

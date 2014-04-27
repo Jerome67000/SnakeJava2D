@@ -12,6 +12,8 @@ public interface Constantes {
     public final static int NB_CASE_X = 18;
     public final static int NB_CASE_Y = 18;
     public final static int DIM_CASE = 20;
+    
+    public final static boolean GRIILE_ON = false;
 
     public final static String GAME_OVER = "game over";
     public final static String VERSION = "1.0";
