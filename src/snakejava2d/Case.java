@@ -1,7 +1,5 @@
 package snakejava2d;
 
-import com.sun.org.apache.xpath.internal.operations.Equals;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;

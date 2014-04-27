@@ -81,7 +81,7 @@ public class Game implements Constantes {
     }
     
     public int getNiveau() {
-        this.niveau = 1+this.serpent.getNbGrenouillesMangees()/2;
+        this.niveau = 1+this.serpent.getNbGrenouillesMangees()/5;
         return this.niveau;
     }
 }

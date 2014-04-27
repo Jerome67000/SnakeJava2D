@@ -1,9 +1,12 @@
 package snakejava2d;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.RoundRectangle2D;
 import java.util.LinkedList;
 
 /**
@@ -62,11 +65,17 @@ public class Serpent {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                             RenderingHints.VALUE_ANTIALIAS_ON);
         
-        g.setColor(Color.CYAN);
+        
         // Dessin du serpent
         for (Case c : this.listeCasesSerpent) {
             
-            g.fillRect(c.getX(), c.getY(), c.getLargeur(), c.getHauteur());
+            int tailleX = c.getLargeur();
+            int tailleY = c.getHauteur();
+            
+            g2.setColor(Color.BLACK);
+            g2.fill(new RoundRectangle2D.Double(c.getX(), c.getY(), tailleX, tailleY, 15, 15)); 
+            g2.setStroke(new BasicStroke(1.6f));
+
         }
     }
     

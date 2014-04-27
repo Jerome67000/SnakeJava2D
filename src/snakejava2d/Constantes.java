@@ -9,12 +9,12 @@ public interface Constantes {
 
     public final static int DELAI_RAFFRAICHISSEMENT = 25;
     
-    public final static int NB_CASE_X = 25;
-    public final static int NB_CASE_Y = 25;
-    public final static int DIM_CASE = 30;
+    public final static int NB_CASE_X = 18;
+    public final static int NB_CASE_Y = 18;
+    public final static int DIM_CASE = 20;
 
     public final static String GAME_OVER = "game over";
-    public final static String VERSION = "0.1";
+    public final static String VERSION = "1.0";
     public final static String TITRE = "Snake avec Java2D";
       
 }
