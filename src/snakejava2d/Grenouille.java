@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.util.Random;
+import javafx.scene.transform.Transform;
 
 /**
  * Représente la nourriture pour le serpent, agrandit le serpent d'une case
@@ -29,7 +30,7 @@ public class Grenouille extends Case implements Constantes {
     
     public void Calcul() {
         
-        this.angle += 4;
+        this.angle += 25;
     }
     
     public void Affichage(Graphics g) {
@@ -43,7 +44,8 @@ public class Grenouille extends Case implements Constantes {
                             Math.toRadians(this.angle),
                             getX() + (getLargeur() / 2),
                             getY() + (getHauteur() / 2)));
-        g.fillRect(this.getX()+2, this.getY()+2, this.getLargeur()-4, this.getHauteur()-4);
+        
+        g.fillRect(this.getX()+4, this.getY()+4, this.getLargeur()-8, this.getHauteur()-8);
         g2.setTransform(tr);
     }
     

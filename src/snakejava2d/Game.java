@@ -31,12 +31,13 @@ public class Game implements Constantes {
     }
 
     public void calcul() {
+        
         this.grenouille.Calcul();
         if(!this.isGameOver) {
+            
             if(this.serpent.estMort())
                 this.isGameOver = true;
             this.serpent.Calcul(this.grenouille, getNiveau());
-        
         }
     }
 
