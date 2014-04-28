@@ -30,29 +30,26 @@ import javax.swing.JLabel;
 public class Grenouille extends Case implements Constantes {
     
     private final static Random RND = new Random();
-    private int angle;
+    private BufferedImage image=null;
 
     public Grenouille() {
         
         super(getRandomX(), getRandomY());
-        this.angle = 0;
 
-    }
-
-    public void Calcul() {
-        
-        this.angle += 25;
-    }
-    
-    public void Affichage(Graphics g) {
-        
-        BufferedImage image=null;
         try { 
             image = ImageIO.read(new File("img/grenouille2.png"));
         } catch (IOException e) { 
           e.printStackTrace(); 
         }
 
+    }
+
+    public void Calcul() {
+        
+    }
+    
+    public void Affichage(Graphics g) {
+        
         g.drawImage(image, this.getX(), this.getY(), null);
          
     }
@@ -65,7 +62,6 @@ public class Grenouille extends Case implements Constantes {
         if (!serpent.getListeCasesSerpent().contains(newGrenouille)) {
             this.setPosX(newGrenouille.getPosX());
             this.setPosY(newGrenouille.getPosY());
-            this.angle = 0;
         }
         else
             nouvelleGrenouille(serpent);
