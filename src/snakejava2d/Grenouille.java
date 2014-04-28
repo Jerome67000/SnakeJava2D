@@ -4,12 +4,22 @@
 
 package snakejava2d;
 
+import static com.sun.javafx.tk.Toolkit.getToolkit;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Random;
 import javafx.scene.transform.Transform;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  * Représente la nourriture pour le serpent, agrandit le serpent d'une case
@@ -26,8 +36,9 @@ public class Grenouille extends Case implements Constantes {
         
         super(getRandomX(), getRandomY());
         this.angle = 0;
+
     }
-    
+
     public void Calcul() {
         
         this.angle += 25;
@@ -35,18 +46,15 @@ public class Grenouille extends Case implements Constantes {
     
     public void Affichage(Graphics g) {
         
-        Graphics2D g2 = (Graphics2D)g;
-        AffineTransform tr = g2.getTransform();
-        
-        g.setColor(Color.RED);
-        
-        g2.setTransform(AffineTransform.getRotateInstance(
-                            Math.toRadians(this.angle),
-                            getX() + (getLargeur() / 2),
-                            getY() + (getHauteur() / 2)));
-        
-        g.fillRect(this.getX()+4, this.getY()+4, this.getLargeur()-8, this.getHauteur()-8);
-        g2.setTransform(tr);
+        BufferedImage image=null;
+        try { 
+            image = ImageIO.read(new File("img/grenouille2.png"));
+        } catch (IOException e) { 
+          e.printStackTrace(); 
+        }
+
+        g.drawImage(image, this.getX(), this.getY(), null);
+         
     }
     
     public void nouvelleGrenouille(Serpent serpent) {
@@ -61,17 +69,13 @@ public class Grenouille extends Case implements Constantes {
         }
         else
             nouvelleGrenouille(serpent);
-        
-        
     }
     
     private static int getRandomX() {
-            return RND.nextInt(NB_CASE_X);
-      }
+        return RND.nextInt(NB_CASE_X);
+    }
       
-      private static int getRandomY() {
-            return RND.nextInt(NB_CASE_Y);
-      }
-    
-    
+    private static int getRandomY() {
+        return RND.nextInt(NB_CASE_Y);
+    }    
 }
