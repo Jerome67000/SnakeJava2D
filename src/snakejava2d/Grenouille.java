@@ -38,6 +38,7 @@ public class Grenouille extends Case implements Constantes {
 
         try { 
             image = ImageIO.read(new File("img/grenouille2.png"));
+            //  ImageIcon imageNrm = new ImageIcon(CentralManager.class.getResource("/grad3d/images/general/logo_Grad.png"));
         } catch (IOException e) { 
           e.printStackTrace(); 
         }
